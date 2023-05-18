@@ -6,11 +6,11 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 
 const routes : Routes = [
     {
-        path: 'dashboard', 
+        path: 'dashboard',
         component: PagesComponent,
         children: [
-          { path: '', component: DashboardComponent },
-          { path: 'account-settings', component: AccountSettingsComponent },
+          { path: '', component: DashboardComponent, data : {titulo : 'Dashboard'} },
+          { path: 'account-settings', component: AccountSettingsComponent, data : {titulo : 'Ajustes'}  },
         ]
       },
 ]
