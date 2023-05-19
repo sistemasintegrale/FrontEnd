@@ -13,6 +13,11 @@ import { HttpClientModule } from "@angular/common/http";
     LoginComponent,
     RegisterComponent,
   ],
+    exports :[
+    LoginComponent,
+    RegisterComponent,
+
+  ],
   imports: [
     CommonModule,
     RouterModule,
@@ -20,10 +25,5 @@ import { HttpClientModule } from "@angular/common/http";
     ReactiveFormsModule,
     HttpClientModule
   ],
-  exports :[
-    LoginComponent,
-    RegisterComponent,
-
-  ]
 })
 export class AuthModule { }
