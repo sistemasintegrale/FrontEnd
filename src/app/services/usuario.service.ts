@@ -18,10 +18,11 @@ export class UsuarioService {
   }
 
   login(formData: LoginForm) {
-    return this.http.post(`${base_url}/login`, formData)
+    console.log(formData);
+    return this.http.post(`${base_url}/usuario/generate/token`, formData)
       .pipe(
-        tap((resp : any) => {
-          localStorage.setItem('token', resp.token)
+        tap((resp: any) => {
+          localStorage.setItem('token', resp.data)
         }));
   }
 }
