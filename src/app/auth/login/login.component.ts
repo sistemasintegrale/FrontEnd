@@ -29,20 +29,26 @@ export class LoginComponent {
     this.usuarioService.login(this.loginForm.value)
       .subscribe(
         resp => {
-          if (this.loginForm.get('remember').value) {
-            localStorage.setItem('email', this.loginForm.get('email').value)
-            localStorage.setItem('remember', this.loginForm.get('remember').value)
-          } else {
-            if (localStorage.getItem('email')) {
-              localStorage.removeItem('email');
-              localStorage.removeItem('remember');
+          if (resp.isSucces) {
+            this.router.navigateByUrl('/');
+            if (this.loginForm.get('remember').value) {
+              localStorage.setItem('email', this.loginForm.get('email').value)
+              localStorage.setItem('remember', this.loginForm.get('remember').value)
+            } else {
+              if (localStorage.getItem('email')) {
+                localStorage.removeItem('email');
+                localStorage.removeItem('remember');
+              }
             }
+          }else{
+            Swal.fire('Error',resp.mensaje,'error');
           }
+
         }, (err) => {
-          Swal.fire('Error', err.error.msg, 'error');
+          console.log(err)
         }
       );
-    this.router.navigateByUrl('/');
+
 
   }
 

@@ -6,12 +6,14 @@ import { AppComponent } from './app.component';
 import { NopageFoundComponent } from './nopage-found/nopage-found.component';
 import { PagesModule } from './pages/pages.module';
 import { AuthModule } from './auth/auth.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './auth/interceptors/auth.interceptors';
 
 
 @NgModule({
   declarations: [
-    AppComponent,    
-    NopageFoundComponent,       
+    AppComponent,
+    NopageFoundComponent,
   ],
   imports: [
     BrowserModule,
@@ -19,7 +21,9 @@ import { AuthModule } from './auth/auth.module';
     PagesModule,
     AuthModule
   ],
-  providers: [],
+  providers: [
+    {provide : HTTP_INTERCEPTORS, useClass : AuthInterceptor, multi :true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
