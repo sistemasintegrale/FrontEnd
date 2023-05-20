@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { RegisterForm } from '../auth/interfaces/register-form.interface';
+import { RegisterForm } from '../interfaces/register-form.interface';
 import { environment } from 'src/environments/environments';
-import { LoginForm } from '../auth/interfaces/login-form.interface';
+import { LoginForm } from '../interfaces/login-form.interface';
 import { Observable, catchError, map, of, tap } from 'rxjs';
 import Swal from 'sweetalert2';
-import { BaseResponse } from '../auth/interfaces/base-Response';
+import { BaseResponse } from '../interfaces/base-Response';
 import { UsuarioData } from '../models/usuarios/usuarioData';
 
 const base_url = environment.base_url;
@@ -53,5 +53,9 @@ export class UsuarioService {
 
   logOut(){
     localStorage.removeItem('token');
+  }
+
+  cargarUsuarios(desde : number = 0) : Observable<BaseResponse<UsuarioData[]>>{
+    return this.http.get<BaseResponse<UsuarioData[]>>(`${base_url}/usuario`)
   }
 }
