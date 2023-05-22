@@ -1,12 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { RegisterForm } from '../interfaces/register-form.interface';
+import { RegisterForm } from '../interfaces/usuario/register-form.interface';
 import { environment } from 'src/environments/environments';
-import { LoginForm } from '../interfaces/login-form.interface';
+import { LoginForm } from '../interfaces/usuario/login-form.interface';
 import { Observable, catchError, map, of, tap } from 'rxjs';
 import Swal from 'sweetalert2';
 import { BaseResponse } from '../interfaces/base-Response';
 import { UsuarioData } from '../models/usuarios/usuarioData';
+import { PaginationResponse } from '../interfaces/pagination-Response';
+import { UsuarioFilters } from '../interfaces/usuario/filters';
 
 const base_url = environment.base_url;
 
@@ -55,7 +57,7 @@ export class UsuarioService {
     localStorage.removeItem('token');
   }
 
-  cargarUsuarios(desde : number = 0) : Observable<BaseResponse<UsuarioData[]>>{
-    return this.http.get<BaseResponse<UsuarioData[]>>(`${base_url}/usuario`)
+  cargarUsuarios( filters : UsuarioFilters) : Observable<PaginationResponse<BaseResponse<UsuarioData[]>>>{
+    return this.http.post<PaginationResponse<BaseResponse<UsuarioData[]>>>(`${base_url}/usuario/getAll`,filters);
   }
 }

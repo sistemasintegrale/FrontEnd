@@ -2,7 +2,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <input type="text" class="form-control" placeholder="Buscar usuario...">
+                <input type="text" class="form-control" placeholder="Buscar usuario..." #txtNombreUsuarioBusqueda (keyup)="buscar(txtNombreUsuarioBusqueda.value)" >
             </div>
         </div>
     </div>
@@ -23,12 +23,13 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Total de Usuarios {{totalUsuarios}}</h4>
-                <h6 class="card-subtitle">Usuarios registrados en la aplicación</h6>
+                <h4 class="card-title">Usuarios Registrados</h4>
+                <h6 *ngIf="totalUsuarios > 0" class="card-subtitle">Mostrando {{desde +1}} a {{(desde + cantidadRegistros) > totalUsuarios ? (totalUsuarios) :  (desde + cantidadRegistros)}} de {{totalUsuarios}}</h6>
+                <h6 *ngIf="totalUsuarios ===0" class="card-subtitle text-danger">Sin Registros</h6>
                 <div class="table-responsive">
                     <table class="table table-bordered">
                         <thead>
-                            <tr>                                
+                            <tr>
                                 <th>Nombre</th>
                                 <th>Apellidos</th>
                                 <th>Correo</th>
@@ -36,12 +37,12 @@
                                 <th class="text-nowrap w100">Acciones</th>
                             </tr>
                         </thead>
-                        <tbody>                                                                                                                
-                            <tr *ngFor="let usuario of usuarios">                              
+                        <tbody>
+                            <tr *ngFor="let usuario of usuarios">
                                 <td>{{usuario.nombre}}</td>
                                 <td>{{usuario.apellidos}}</td>
                                 <td>{{usuario.email}}</td>
-                                <td class="w100">                                    
+                                <td class="w100">
                                     <span *ngIf="!usuario.estado" class="label label-danger">Inactivo</span>
                                     <span *ngIf="usuario.estado" class="label label-success">Activo</span>
                                 </td>
@@ -53,9 +54,9 @@
                         </tbody>
                     </table>
                 </div>
-                <button class="btn btn-secondary">Anteriores</button>
+                <button (click)="cambiarPagina(-cantidadRegistros)" class="btn btn-secondary">Anteriores</button>
                 &nbsp;
-                <button class="btn btn-secondary">Siguientes</button>
+                <button (click)="cambiarPagina(cantidadRegistros)"  class="btn btn-secondary">Siguientes</button>
             </div>
         </div>
     </div>
