@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { UsuarioFilters } from 'src/app/interfaces/usuario/filters';
 import { UsuarioData } from 'src/app/models/usuarios/usuarioData';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import Swal from 'sweetalert2';
+import { ModalUsuarioService } from './modal/modal.service';
 
 @Component({
   selector: 'app-usuarios',
@@ -18,9 +20,14 @@ export class UsuariosComponent implements OnInit {
   public nombre :string = '';
   public cantidadRegistros : number = 10;
 
-  constructor(private usuarioService: UsuarioService) { }
+  constructor(private usuarioService: UsuarioService,
+              private modalUsuarioService : ModalUsuarioService) { }
   ngOnInit(): void {
     this.cargarUsuarios();
+    this.modalUsuarioService.nuevosDatos
+    .subscribe(data =>
+      this.cargarUsuarios()
+    )
   }
 
   cargarUsuarios(){
@@ -53,5 +60,33 @@ export class UsuariosComponent implements OnInit {
     this.desde = 0;
     this.nombre = termino;
     this.cargarUsuarios();
+  }
+
+  AbriModal(usuario? : UsuarioData){
+    this.modalUsuarioService.abrirModal(usuario)
+  }
+
+  eliminarUsuario(usuario : UsuarioData){
+    Swal.fire({
+      title: '¿Borrar usuario?',
+      text: `Esta apunto de borrar a ${usuario.nombre}`,
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Si, borrarlo'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.usuarioService.eliminarUsuario(usuario)
+        .subscribe(resp => 
+          {
+            Swal.fire(
+              'Usuario borrado',
+              `${usuario.nombre} fué borrado correctamente`,
+              'success'
+              );
+              this.cargarUsuarios();
+          }
+          );
+      }
+    })
   }
 }

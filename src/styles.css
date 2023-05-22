@@ -6,3 +6,24 @@
 .w100{
     width: 100px;
 }
+
+.fondo-modal {
+    background-color: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    left: 0px;
+    height: 0px;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    z-index: 999999;
+}
+.fondo{
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.oculto {
+    display: none;
+}
+
+/* html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } */

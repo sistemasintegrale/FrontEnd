@@ -8,6 +8,7 @@ import { PagesModule } from './pages/pages.module';
 import { AuthModule } from './auth/auth.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth/interceptors/auth.interceptors';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { AuthInterceptor } from './auth/interceptors/auth.interceptors';
     BrowserModule,
     AppRoutingModule,
     PagesModule,
-    AuthModule
+    AuthModule,
+    BrowserAnimationsModule
   ],
   providers: [
     {provide : HTTP_INTERCEPTORS, useClass : AuthInterceptor, multi :true}

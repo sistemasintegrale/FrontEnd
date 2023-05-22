@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 })
 export class RegisterComponent {
   constructor(private fb: FormBuilder,
-    private usuarioService : UsuarioService) {}
+    private usuarioService: UsuarioService) { }
 
   public formSubmitted = false;
 
@@ -27,7 +27,7 @@ export class RegisterComponent {
       terminos: [true, [Validators.required]],
     },
     {
-      validators : this.passwordsIguales('password','password2')
+      validators: this.passwordsIguales('password', 'password2')
     }
   );
 
@@ -35,14 +35,14 @@ export class RegisterComponent {
 
   crearUsuario() {
     this.formSubmitted = true;
-    if(this.registerForm.invalid)
-    return;
+    if (this.registerForm.invalid)
+      return;
     this.usuarioService.crearUsuario(this.registerForm.value)
-    .subscribe(res =>{
-      console.log(res),
-      console.log('Usuario Creado')
-      Swal.fire('Buen trabajo',`Usuario ${this.registerForm.get('nombre')?.value} creado`,'success')
-  },(err) => console.warn);
+      .subscribe(res => {
+        console.log(res),
+          console.log('Usuario Creado')
+        Swal.fire('Buen trabajo', `Usuario ${this.registerForm.get('nombre')?.value} creado`, 'success')
+      }, (err) => console.warn);
   }
 
   campoNoValido(campo: string): boolean {
@@ -59,14 +59,14 @@ export class RegisterComponent {
     return pass1 !== pass2 && this.formSubmitted;
   }
 
-  passwordsIguales(passName1 : string, passName2 :string){
-    return (formGroup : FormGroup)=>{
+  passwordsIguales(passName1: string, passName2: string) {
+    return (formGroup: FormGroup) => {
       const pass1Control = formGroup.get('passName1');
       const pass2Control = formGroup.get('passName2');
       if (pass1Control === pass2Control) {
         pass2Control?.setErrors(null);
-      }else{
-        pass2Control?.setErrors({noEsIgual : true});
+      } else {
+        pass2Control?.setErrors({ noEsIgual: true });
       }
     }
   }

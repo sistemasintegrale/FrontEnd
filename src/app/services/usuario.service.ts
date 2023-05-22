@@ -23,6 +23,9 @@ export class UsuarioService {
   crearUsuario(formData: RegisterForm) {
     return this.http.post(`${base_url}/usuario`, formData);
   }
+  modificarUsuario(formData: RegisterForm, id : number) {
+    return this.http.put(`${base_url}/usuario/${id}`, formData);
+  }
 
   login(formData: LoginForm): Observable<BaseResponse<string>> {
     return this.http.post<BaseResponse<string>>(`${base_url}/usuario/generate/token`, formData)
@@ -59,5 +62,9 @@ export class UsuarioService {
 
   cargarUsuarios( filters : UsuarioFilters) : Observable<PaginationResponse<BaseResponse<UsuarioData[]>>>{
     return this.http.post<PaginationResponse<BaseResponse<UsuarioData[]>>>(`${base_url}/usuario/getAll`,filters);
+  }
+
+  eliminarUsuario(usuario : UsuarioData):Observable<boolean>{
+    return this.http.delete<boolean>(`${base_url}/usuario/${usuario.id}`);
   }
 }
