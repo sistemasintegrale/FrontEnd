@@ -12,7 +12,7 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { DialogClienteComponent } from './mantenimientos/usuarios/dialog/dialog-cliente/dialog-cliente.component';
 import {MatIconModule} from '@angular/material/icon';
-
+import {TooltipPosition, MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -30,7 +30,8 @@ import {MatIconModule} from '@angular/material/icon';
     MatButtonModule,
     MatDialogModule,
     MatSnackBarModule,
-    MatIconModule
+    MatIconModule,    
+    MatTooltipModule
   ],
   exports : [
     DashboardComponent,

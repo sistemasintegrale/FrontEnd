@@ -31,7 +31,7 @@
                     </div>
                     <div class="col">
                         <div class="text-right">
-                            <button class="btn btn-primary" (click)="openAdd()">
+                            <button class="btn waves-effect waves-light btn-primary" (click)="openAdd()">
                                 <i class="fa fa-user"></i>
                                 Nuevo Usuario
                             </button>
@@ -59,8 +59,8 @@
                                     <span *ngIf="usuario.estado" class="label label-success">Activo</span>
                                 </td>
                                 <td class="text-nowrap text-center">
-                                    <a (click)="openEdit(usuario)" style="cursor:pointer" data-toggle="tooltip" data-original-title="Editar"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
-                                    <a (click)="eliminarUsuario(usuario)" style="cursor:pointer" data-toggle="tooltip" data-original-title="Borrar"> <i class="fa fa-close text-danger"></i> </a>
+                                    <a  matTooltip="Editar usuario {{usuario.nombre}}" (click)="openEdit(usuario)" style="cursor:pointer" data-toggle="tooltip" data-original-title="Editar"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                                    <a matTooltip="Eliminar usuario {{usuario.nombre}}" (click)="eliminarUsuario(usuario)" style="cursor:pointer" data-toggle="tooltip" data-original-title="Borrar"> <i class="fa fa-close text-danger"></i> </a>
                                 </td>
                             </tr>
                         </tbody>

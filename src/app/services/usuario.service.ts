@@ -9,6 +9,7 @@ import { BaseResponse } from '../interfaces/base-Response';
 import { UsuarioData } from '../models/usuarios/usuarioData';
 import { PaginationResponse } from '../interfaces/pagination-Response';
 import { UsuarioFilters } from '../interfaces/usuario/filters';
+import { UsuarioCreate } from '../models/usuarios/usuarioCreate';
 
 const base_url = environment.base_url;
 
@@ -20,11 +21,23 @@ export class UsuarioService {
 
   public usuario! : UsuarioData;
 
+  cargarUsuarios( filters : UsuarioFilters) : Observable<PaginationResponse<BaseResponse<UsuarioData[]>>>{
+    return this.http.post<PaginationResponse<BaseResponse<UsuarioData[]>>>(`${base_url}/usuario/getAll`,filters);
+  }
+
   crearUsuario(formData: RegisterForm) : Observable<BaseResponse<UsuarioData>> {
+    
     return this.http.post<BaseResponse<UsuarioData>>(`${base_url}/usuario`, formData);
   }
   modificarUsuario(formData: RegisterForm, id : number) : Observable<BaseResponse<UsuarioData>> {
-    return this.http.put<BaseResponse<UsuarioData>>(`${base_url}/usuario/${id}`, formData);
+    debugger
+    const {nombre,apellidos,email,password,estado} = formData;
+    const valueEstado = String(estado) === 'true' ? 1:0;
+    const usuarioEdit = new UsuarioCreate(nombre,apellidos,email,password,Boolean(valueEstado));
+    return this.http.put<BaseResponse<UsuarioData>>(`${base_url}/usuario/${id}`, usuarioEdit);
+  }
+  eliminarUsuario(usuario : UsuarioData):Observable<boolean>{
+    return this.http.delete<boolean>(`${base_url}/usuario/${usuario.id}`);
   }
 
   login(formData: LoginForm): Observable<BaseResponse<string>> {
@@ -60,11 +73,5 @@ export class UsuarioService {
     localStorage.removeItem('token');
   }
 
-  cargarUsuarios( filters : UsuarioFilters) : Observable<PaginationResponse<BaseResponse<UsuarioData[]>>>{
-    return this.http.post<PaginationResponse<BaseResponse<UsuarioData[]>>>(`${base_url}/usuario/getAll`,filters);
-  }
 
-  eliminarUsuario(usuario : UsuarioData):Observable<boolean>{
-    return this.http.delete<boolean>(`${base_url}/usuario/${usuario.id}`);
-  }
 }

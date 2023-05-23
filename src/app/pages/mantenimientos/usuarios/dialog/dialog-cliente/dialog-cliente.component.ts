@@ -1,10 +1,7 @@
-import { publishFacade } from '@angular/compiler';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { RegisterForm } from 'src/app/interfaces/usuario/register-form.interface';
-import { UsuarioCreate } from 'src/app/models/usuarios/usuarioCreate';
 import { UsuarioData } from 'src/app/models/usuarios/usuarioData';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
@@ -22,9 +19,17 @@ export class DialogClienteComponent {
     @Inject(MAT_DIALOG_DATA) public usuario: UsuarioData
   ) {
     if (this.usuario !== null) {
+      this.titulo = 'Modifar usuario ' + this.usuario.nombre;
+    }else{
+      this.titulo = 'Nuevo usuario';
     }
   }
+  public estados = [
+    {value : true, descripcion : 'Activo'},{value : false, descripcion : 'Inactivo'}
+  ]
 
+  public titulo = '';
+  
   public formSubmitted = false;
 
   public registerForm: any = this.fb.group({
@@ -35,7 +40,7 @@ export class DialogClienteComponent {
       [Validators.required, Validators.email],
     ],
     password: [this.usuario !==null ?this.usuario.password : '', [Validators.required]],
-    terminos: [this.usuario !==null ?this.usuario.estado : true, [Validators.required]],
+    estado: [this.usuario !==null ?this.usuario.estado : true, [Validators.required]],  
   });
 
   close() {
@@ -82,4 +87,6 @@ export class DialogClienteComponent {
   campoNoValido(campo: string): boolean {
     return this.registerForm.get(campo)?.invalid! && this.formSubmitted;
   }
+
+
 }

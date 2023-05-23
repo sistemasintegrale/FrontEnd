@@ -1,5 +1,5 @@
 <h1 mat-dialog-title>
-  {{ usuario !== null ? "Editar usuario" : "Nuevo Usuario" }}
+  {{ titulo}}
 </h1>
 <div class="" mat-dialog-content>
   <form class="form-horizontal" id="loginform" autocomplete="off" [formGroup]="registerForm">
@@ -19,6 +19,12 @@
       <label for="contraseña" class="control-label">Contraseña:</label>
       <input type="password" class="form-control" id="contraseña" formControlName ="password">
     </div>
+    <div class="form-group">
+      <label class="control-label col-md-3">Estado</label>
+          <select class="form-control custom-select" formControlName ="estado" >
+              <option *ngFor="let item of estados" [value]="item.value">{{item.descripcion}}</option>
+          </select>
+  </div>
     <div class="row">
       <div class="col text-danger">
         <p *ngIf="campoNoValido('nombre')">El nombre es obligatorio</p>
@@ -30,11 +36,8 @@
   </form>
 </div>
 <div class="" mat-dialog-actions>
-  <button mat-raised-button color="warn" (click)="close()" [mat-dialog-close]="false">Cancelar</button>
-  <button *ngIf="usuario === null" mat-raised-button color="primary" (click)="addUsuario()">
-    Guardar
-  </button>
-  <button *ngIf="usuario !== null" mat-raised-button color="primary" (click)="editUsuario()">
-    Modificar
-  </button>
+  <button type="button" class="btn waves-effect waves-light btn-danger" (click)="close()">Cancelar</button>
+  &nbsp;
+  <button *ngIf="usuario === null" type="button" class="btn waves-effect waves-light btn-primary" (click)="addUsuario()">Guardar</button>
+  <button *ngIf="usuario !== null" type="button" class="btn waves-effect waves-light btn-primary" (click)="editUsuario()">Modificar</button>
 </div>
