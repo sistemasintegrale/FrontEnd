@@ -20,11 +20,11 @@ export class UsuarioService {
 
   public usuario! : UsuarioData;
 
-  crearUsuario(formData: RegisterForm) {
-    return this.http.post(`${base_url}/usuario`, formData);
+  crearUsuario(formData: RegisterForm) : Observable<BaseResponse<UsuarioData>> {
+    return this.http.post<BaseResponse<UsuarioData>>(`${base_url}/usuario`, formData);
   }
-  modificarUsuario(formData: RegisterForm, id : number) {
-    return this.http.put(`${base_url}/usuario/${id}`, formData);
+  modificarUsuario(formData: RegisterForm, id : number) : Observable<BaseResponse<UsuarioData>> {
+    return this.http.put<BaseResponse<UsuarioData>>(`${base_url}/usuario/${id}`, formData);
   }
 
   login(formData: LoginForm): Observable<BaseResponse<string>> {

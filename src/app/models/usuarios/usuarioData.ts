@@ -7,5 +7,7 @@ export class UsuarioData{
     public password : string,
     public estado : boolean,
     public token : string
-  ){}
+  ){};
+
+
 }

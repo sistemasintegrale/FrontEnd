@@ -1,0 +1,40 @@
+<h1 mat-dialog-title>
+  {{ usuario !== null ? "Editar usuario" : "Nuevo Usuario" }}
+</h1>
+<div class="" mat-dialog-content>
+  <form class="form-horizontal" id="loginform" autocomplete="off" [formGroup]="registerForm">
+    <div class="form-group">
+      <label for="nombre" class="control-label">Nombres :</label>
+      <input type="text" class="form-control" id="nombre" placeholder="" formControlName ="nombre">
+    </div>
+    <div class="form-group">
+      <label for="apellidos" class="control-label">Apellidos :</label>
+      <input type="text" class="form-control" id="apellidos" formControlName ="apellidos">
+    </div>
+    <div class="form-group">
+      <label for="correo" class="control-label">Correo :</label>
+      <input type="email" class="form-control" id="correo" formControlName ="email">
+    </div>
+    <div class="form-group">
+      <label for="contraseña" class="control-label">Contraseña:</label>
+      <input type="password" class="form-control" id="contraseña" formControlName ="password">
+    </div>
+    <div class="row">
+      <div class="col text-danger">
+        <p *ngIf="campoNoValido('nombre')">El nombre es obligatorio</p>
+        <p *ngIf="campoNoValido('email')">El correo es obligatorio y debe ser válido</p>
+        <p *ngIf="campoNoValido('apellidos')">El apellido es obligatorio</p>
+        <p *ngIf="campoNoValido('password')">La contraseña es obligatoria</p>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="" mat-dialog-actions>
+  <button mat-raised-button color="warn" (click)="close()" [mat-dialog-close]="false">Cancelar</button>
+  <button *ngIf="usuario === null" mat-raised-button color="primary" (click)="addUsuario()">
+    Guardar
+  </button>
+  <button *ngIf="usuario !== null" mat-raised-button color="primary" (click)="editUsuario()">
+    Modificar
+  </button>
+</div>

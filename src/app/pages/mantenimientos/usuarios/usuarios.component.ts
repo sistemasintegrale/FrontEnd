@@ -1,9 +1,10 @@
+import { DialogClienteComponent } from './dialog/dialog-cliente/dialog-cliente.component';
 import { Component, OnInit } from '@angular/core';
 import { UsuarioFilters } from 'src/app/interfaces/usuario/filters';
 import { UsuarioData } from 'src/app/models/usuarios/usuarioData';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { MatDialog } from "@angular/material/dialog";
 import Swal from 'sweetalert2';
-import { ModalUsuarioService } from './modal/modal.service';
 
 @Component({
   selector: 'app-usuarios',
@@ -21,13 +22,9 @@ export class UsuariosComponent implements OnInit {
   public cantidadRegistros : number = 10;
 
   constructor(private usuarioService: UsuarioService,
-              private modalUsuarioService : ModalUsuarioService) { }
+              public dialog : MatDialog) { }
   ngOnInit(): void {
     this.cargarUsuarios();
-    this.modalUsuarioService.nuevosDatos
-    .subscribe(data =>
-      this.cargarUsuarios()
-    )
   }
 
   cargarUsuarios(){
@@ -62,8 +59,33 @@ export class UsuariosComponent implements OnInit {
     this.cargarUsuarios();
   }
 
-  AbriModal(usuario? : UsuarioData){
-    this.modalUsuarioService.abrirModal(usuario)
+
+
+  openAdd(){
+    const dialogRef = this.dialog.open(DialogClienteComponent,{
+      width : '600px',
+      disableClose:false,
+    });
+
+    dialogRef.afterClosed().subscribe(result =>{
+        if (result) {
+          this.cargarUsuarios();
+        }
+    })
+  }
+
+  openEdit(usuario : UsuarioData){
+    const dialogRef = this.dialog.open(DialogClienteComponent,{
+      disableClose:false,
+      width : '600px',
+      data : usuario
+    });
+
+    dialogRef.afterClosed().subscribe(result =>{
+      if (result) {
+        this.cargarUsuarios();
+      }
+    })
   }
 
   eliminarUsuario(usuario : UsuarioData){
@@ -76,7 +98,7 @@ export class UsuariosComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.usuarioService.eliminarUsuario(usuario)
-        .subscribe(resp => 
+        .subscribe(resp =>
           {
             Swal.fire(
               'Usuario borrado',
