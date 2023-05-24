@@ -13,6 +13,7 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { DialogClienteComponent } from './mantenimientos/usuarios/dialog/dialog-cliente/dialog-cliente.component';
 import {MatIconModule} from '@angular/material/icon';
 import {TooltipPosition, MatTooltipModule} from '@angular/material/tooltip';
+import { ReporteHistorialComponent } from './dashboard/reports/reporte-historial.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {TooltipPosition, MatTooltipModule} from '@angular/material/tooltip';
     PagesComponent,
     AccountSettingsComponent,
     UsuariosComponent,
-    DialogClienteComponent
+    DialogClienteComponent,
+    ReporteHistorialComponent
   ],
   imports: [
     CommonModule,

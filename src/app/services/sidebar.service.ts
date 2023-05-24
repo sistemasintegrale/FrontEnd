@@ -10,7 +10,10 @@ export class SidebarService {
       icono : 'mdi mdi-gauge',
       submenu:[
         {
-          titulo : 'Main', url : '/'
+          titulo : 'Main', url : '/dashboard'
+        },
+        {
+          titulo : 'Reporte Historial', url : 'reporte-historial'
         }
       ]
     },

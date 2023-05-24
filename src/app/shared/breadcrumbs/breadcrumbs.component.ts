@@ -10,11 +10,13 @@ import { Subscription, filter, map } from 'rxjs';
 export class BreadcrumbsComponent implements OnDestroy {
   public titulo!: string;
   public tituloSubs$!: Subscription;
+  public subTitulo :string = '';
 
   constructor(private router: Router) {
-    this.tituloSubs$ = this.getArgumentosRuta().subscribe(({ titulo }) => {
+    this.tituloSubs$ = this.getArgumentosRuta().subscribe(({ titulo,subTitulo }) => {
       this.titulo = titulo;
-      document.title = `NovaGlass - ${this.titulo}`;
+      this.subTitulo = subTitulo;
+      document.title = `${this.titulo}`;
     }
     );
   }
