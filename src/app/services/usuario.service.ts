@@ -26,9 +26,14 @@ export class UsuarioService {
   }
 
   crearUsuario(formData: RegisterForm) : Observable<BaseResponse<UsuarioData>> {
-    
+
     return this.http.post<BaseResponse<UsuarioData>>(`${base_url}/usuario`, formData);
   }
+
+  getUsuario(id:number) : Observable<BaseResponse<UsuarioData>> {
+    return this.http.get<BaseResponse<UsuarioData>>(`${base_url}/usuario/${id}`);
+  }
+
   modificarUsuario(formData: RegisterForm, id : number) : Observable<BaseResponse<UsuarioData>> {
     debugger
     const {nombre,apellidos,email,password,estado} = formData;

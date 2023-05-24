@@ -4,12 +4,13 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UsuarioData } from 'src/app/models/usuarios/usuarioData';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import Swal from 'sweetalert2';
 
 @Component({
   templateUrl: './dialog-cliente.component.html',
   styleUrls: ['./dialog-cliente.component.css'],
 })
-export class DialogClienteComponent {
+export class DialogClienteComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
@@ -19,28 +20,39 @@ export class DialogClienteComponent {
     @Inject(MAT_DIALOG_DATA) public usuario: UsuarioData
   ) {
     if (this.usuario !== null) {
-      this.titulo = 'Modifar usuario ' + this.usuario.nombre;
+      this.titulo = 'Modificar usuario ' + this.usuario.nombre;
     }else{
       this.titulo = 'Nuevo usuario';
+
     }
+  }
+  ngOnInit(): void {
+    debugger;
+    if (this.usuario) {
+      this.registerForm.patchValue({
+        nombre : this.usuario.nombre,
+        apellidos : this.usuario.apellidos,
+        email : this.usuario.email,
+        password : this.usuario.password,
+        estado : this.usuario.estado
+      })
+    }
+
   }
   public estados = [
     {value : true, descripcion : 'Activo'},{value : false, descripcion : 'Inactivo'}
   ]
 
   public titulo = '';
-  
+
   public formSubmitted = false;
 
   public registerForm: any = this.fb.group({
-    nombre: [this.usuario !==null ?this.usuario.nombre : '', [Validators.required]],
-    apellidos: [this.usuario !==null ?this.usuario.apellidos : '', [Validators.required]],
-    email: [
-      this.usuario !==null ?this.usuario.email : '',
-      [Validators.required, Validators.email],
-    ],
-    password: [this.usuario !==null ?this.usuario.password : '', [Validators.required]],
-    estado: [this.usuario !==null ?this.usuario.estado : true, [Validators.required]],  
+    nombre: ['', [Validators.required]],
+    apellidos: ['', [Validators.required]],
+    email: ['',[Validators.required, Validators.email]],
+    password: ['', [Validators.required]],
+    estado: [true, [Validators.required]],
   });
 
   close() {
@@ -56,9 +68,11 @@ export class DialogClienteComponent {
       next:((data) =>{
         if (data.isSucces) {
           this.dialogRef.close(true);
-          this.snackBar.open('Usuario Creado con exito', '', {
-            duration: 2000,
-          });
+          Swal.fire(
+            'Usuario Creado',
+            `Usuario ${data.data.nombre} fué creado correctamente`,
+            'success'
+            );
         }
       })
     }
@@ -75,9 +89,11 @@ export class DialogClienteComponent {
         next:((data) =>{
           if (data.isSucces) {
             this.dialogRef.close(true);
-            this.snackBar.open('Usuario Modificardo con exito', '', {
-              duration: 2000,
-            });
+            Swal.fire(
+              'Usuario modificado',
+              `Usuario ${data.data.nombre} fué modificado correctamente`,
+              'success'
+              );
           }
         })
       }
@@ -88,5 +104,17 @@ export class DialogClienteComponent {
     return this.registerForm.get(campo)?.invalid! && this.formSubmitted;
   }
 
+  public verPassword : boolean = false;
+
+  cambiarTipo(valor : boolean){
+    let elemento :any = document.getElementById('contraseña');
+    this.verPassword = valor;
+    if (valor) {
+      elemento.type = "text";
+    }else{
+      elemento.type = "password";
+    }
+
+  }
 
 }

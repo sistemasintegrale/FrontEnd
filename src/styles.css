@@ -2,7 +2,7 @@
 .selector .cursor{
  cursor: pointer;
 }
-    
+
 .w100{
     width: 100px;
 }
@@ -23,6 +23,10 @@
 
 .oculto {
     display: none;
+}
+
+.td-aciones{
+  padding: 0px !important;
 }
 
 /* html, body { height: 100%; }

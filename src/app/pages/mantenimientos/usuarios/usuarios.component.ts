@@ -75,17 +75,23 @@ export class UsuariosComponent implements OnInit {
   }
 
   openEdit(usuario : UsuarioData){
-    const dialogRef = this.dialog.open(DialogClienteComponent,{
-      disableClose:false,
-      width : '600px',
-      data : usuario
-    });
-
-    dialogRef.afterClosed().subscribe(result =>{
-      if (result) {
-        this.cargarUsuarios();
-      }
-    })
+    debugger;
+    this.usuarioService.getUsuario(usuario.id)
+      .subscribe({
+        next :((data)=>{
+          debugger
+          usuario.password = data.data.password
+          const dialogRef = this.dialog.open(DialogClienteComponent,{
+            disableClose:false,
+            width : '600px',
+            data : usuario
+          }).afterClosed().subscribe(result =>{
+            if (result) {
+              this.cargarUsuarios();
+            }
+          });
+        })
+      });
   }
 
   eliminarUsuario(usuario : UsuarioData){
