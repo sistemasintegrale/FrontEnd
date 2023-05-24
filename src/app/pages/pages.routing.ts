@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PagesComponent } from './pages.component';
-import { DashboardComponent } from './dasboard/main/dashboard.component';
+import { DashboardComponent } from './dashboard/main/dashboard.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { AuthGuard } from '../guards/auth.guard';
 import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';

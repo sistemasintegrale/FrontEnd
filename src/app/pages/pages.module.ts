@@ -1,7 +1,7 @@
 import { PagesComponent } from './pages.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DashboardComponent } from './dasboard/main/dashboard.component';
+import { DashboardComponent } from './dashboard/main/dashboard.component';
 import { SharedModule } from '../shared/shared.module';
 import { AppRoutingModule } from '../app-routing.module';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
@@ -30,7 +30,7 @@ import {TooltipPosition, MatTooltipModule} from '@angular/material/tooltip';
     MatButtonModule,
     MatDialogModule,
     MatSnackBarModule,
-    MatIconModule,    
+    MatIconModule,
     MatTooltipModule
   ],
   exports : [
