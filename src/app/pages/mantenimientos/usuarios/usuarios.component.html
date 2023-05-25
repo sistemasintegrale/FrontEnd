@@ -1,79 +1,122 @@
-<div class="row animated fadeIn fast" >
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <input type="text" class="form-control" placeholder="Buscar usuario..." #txtNombreUsuarioBusqueda (keyup)="buscar(txtNombreUsuarioBusqueda.value)" >
-            </div>
-        </div>
+<div class="row animated fadeIn fast">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Buscar usuario..."
+          #txtNombreUsuarioBusqueda
+          (keyup)="buscar(txtNombreUsuarioBusqueda.value)"
+        />
+      </div>
     </div>
+  </div>
 </div>
 
 <div class="row animated fadeIn fast" *ngIf="cargando">
-    <div class="col-12">
-        <div class="alert alert-info text-center">
-            <h4 class="alert-heading">Cargando</h4>
-            <i class="fa fa-spin fa-refresh fa-2x"></i>
-            <br>
-            <a class="mb-0">Por favor espere</a>
-        </div>
+  <div class="col-12">
+    <div class="alert alert-info text-center">
+      <h4 class="alert-heading">Cargando</h4>
+      <i class="fa fa-spin fa-refresh fa-2x"></i>
+      <br />
+      <a class="mb-0">Por favor espere</a>
     </div>
+  </div>
 </div>
 
 <div class="row animated fadeIn fast" *ngIf="!cargando">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-8">
-                        <h4 class="card-title">Usuarios Registrados</h4>
-                <h6 *ngIf="totalUsuarios > 0" class="card-subtitle">Mostrando {{desde +1}} a {{(desde + cantidadRegistros) > totalUsuarios ? (totalUsuarios) :  (desde + cantidadRegistros)}} de {{totalUsuarios}}</h6>
-                <h6 *ngIf="totalUsuarios ===0" class="card-subtitle text-danger">Sin Registros</h6>
-                    </div>
-                    <div class="col">
-                        <div class="text-right">
-                            <button class="btn waves-effect waves-light btn-primary" (click)="openAdd()">
-                                <i class="fa fa-user"></i>
-                                Nuevo Usuario
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Nombre</th>
-                                <th>Apellidos</th>
-                                <th>Correo</th>
-                                <th>Estado</th>
-                                <th class="text-nowrap w100">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let usuario of usuarios">
-                                <td>{{usuario.nombre}}</td>
-                                <td>{{usuario.apellidos}}</td>
-                                <td>{{usuario.email}}</td>
-                                <td class="w100">
-                                    <span *ngIf="!usuario.estado" class="label label-danger">Inactivo</span>
-                                    <span *ngIf="usuario.estado" class="label label-success">Activo</span>
-                                </td>
-                                <td class="text-nowrap text-center td-aciones" >
-                                  <button mat-icon-button color="primary"	matTooltip="Editar usuario {{usuario.nombre}}" (click)="openEdit(usuario)"  >
-                                    <mat-icon >edit</mat-icon>
-                                  </button>
-                                  <button mat-icon-button color="warn"  matTooltip="Eliminar usuario {{usuario.nombre}}"	(click)="eliminarUsuario(usuario)">
-                                    <mat-icon >delete</mat-icon>
-                                  </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <button (click)="cambiarPagina(-cantidadRegistros)" class="btn btn-secondary">Anteriores</button>
-                &nbsp;
-                <button (click)="cambiarPagina(cantidadRegistros)"  class="btn btn-secondary">Siguientes</button>
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-8">
+            <h4 class="card-title">Usuarios Registrados</h4>
+            <h6 *ngIf="totalUsuarios > 0" class="card-subtitle">
+              Mostrando {{ desde + 1 }} a
+              {{
+                desde + cantidadRegistros > totalUsuarios
+                  ? totalUsuarios
+                  : desde + cantidadRegistros
+              }}
+              de {{ totalUsuarios }}
+            </h6>
+            <h6 *ngIf="totalUsuarios === 0" class="card-subtitle text-danger">
+              Sin Registros
+            </h6>
+          </div>
+          <div class="col">
+            <div class="text-right">
+              <button
+                class="btn waves-effect waves-light btn-primary"
+                (click)="openAdd()"
+              >
+                <i class="fa fa-user"></i>
+                Nuevo Usuario
+              </button>
             </div>
+          </div>
         </div>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Apellidos</th>
+                <th>Correo</th>
+                <th>Estado</th>
+                <th class="text-nowrap w100">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let usuario of usuarios">
+                <td>{{ usuario.nombre }}</td>
+                <td>{{ usuario.apellidos }}</td>
+                <td>{{ usuario.email }}</td>
+                <td class="w100">
+                  <span *ngIf="!usuario.estado" class="label label-danger"
+                    >Inactivo</span
+                  >
+                  <span *ngIf="usuario.estado" class="label label-success"
+                    >Activo</span
+                  >
+                </td>
+                <td class="text-nowrap text-center td-aciones">
+                  <button
+                    mat-icon-button
+                    color="primary"
+                    matTooltip="Editar usuario {{ usuario.nombre }}"
+                    (click)="openEdit(usuario)"
+                  >
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button
+                    mat-icon-button
+                    color="warn"
+                    matTooltip="Eliminar usuario {{ usuario.nombre }}"
+                    (click)="eliminarUsuario(usuario)"
+                  >
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <button
+          (click)="cambiarPagina(-cantidadRegistros)"
+          class="btn btn-secondary"
+        >
+          Anteriores
+        </button>
+        &nbsp;
+        <button
+          (click)="cambiarPagina(cantidadRegistros)"
+          class="btn btn-secondary"
+        >
+          Siguientes
+        </button>
+      </div>
     </div>
+  </div>
 </div>

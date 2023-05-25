@@ -4,7 +4,6 @@ import { RegisterForm } from '../interfaces/usuario/register-form.interface';
 import { environment } from 'src/environments/environments';
 import { LoginForm } from '../interfaces/usuario/login-form.interface';
 import { Observable, catchError, map, of, tap } from 'rxjs';
-import Swal from 'sweetalert2';
 import { BaseResponse } from '../interfaces/base-Response';
 import { UsuarioData } from '../models/usuarios/usuarioData';
 import { PaginationResponse } from '../interfaces/pagination-Response';

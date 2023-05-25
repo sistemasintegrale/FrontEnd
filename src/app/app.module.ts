@@ -10,6 +10,12 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth/interceptors/auth.interceptors';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+//Configuracion Local para los Pipes
+
+import locale from "@angular/common/locales/es-PE";
+import {registerLocaleData} from "@angular/common";
+
+registerLocaleData(locale);
 
 @NgModule({
   declarations: [

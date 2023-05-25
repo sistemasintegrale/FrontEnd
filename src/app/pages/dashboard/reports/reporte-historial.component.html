@@ -1,57 +1,87 @@
-<div class="row animated fadeIn fast" >
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <input type="text" class="form-control" placeholder="Buscar usuario...">
-            </div>
-        </div>
+<div class="row animated fadeIn fast">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <input type="text" class="form-control" placeholder="Buscar usuario..." />
+      </div>
     </div>
+  </div>
 </div>
 
-<div class="row animated fadeIn fast">
-    <div class="col-12">
-        <div class="alert alert-info text-center">
-            <h4 class="alert-heading">Cargando</h4>
-            <i class="fa fa-spin fa-refresh fa-2x"></i>
-            <br>
-            <a class="mb-0">Por favor espere</a>
-        </div>
+<div class="row animated fadeIn fast" *ngIf="cargando">
+  <div class="col-12">
+    <div class="alert alert-info text-center">
+      <h4 class="alert-heading">Cargando</h4>
+      <i class="fa fa-spin fa-refresh fa-2x"></i>
+      <br />
+      <a class="mb-0">Por favor espere</a>
     </div>
+  </div>
 </div>
 
 <div class="row">
-    <div class="col-12">
-        <div class="card">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Reporte Historial</h4>
+        <h6 class="card-subtitle">Usuarios registrados en la aplicación</h6>
+        <div class="table-responsive">
+          <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Reporte Historial</h4>
-                <h6 class="card-subtitle">Usuarios registrados en la aplicación</h6>
-                <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Correo</th>
-                                <th>Nombre</th>
-                                <th>Apellidos</th>
-                                <th class="text-nowrap">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>                                                                                                                
-                            <tr>
-                                <td>Tantas earum numeris</td>
-                                <td>Tantas earum numeris</td>
-                                <td>Tantas earum numeris</td>
-                                <td class="text-nowrap">
-                                    <a href="#" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
-                                    <a href="#" data-toggle="tooltip" data-original-title="Close"> <i class="fa fa-close text-danger"></i> </a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <button class="btn btn-secondary">Anteriores</button>
-                &nbsp;
-                <button class="btn btn-secondary">Siguientes</button>
+                <h4 class="card-title">Sortable table</h4>
+                <h6 class="card-subtitle">Basic sortable table</h6>
+                <table id="clmtable" data-show-columns="true" data-height="300">
+                </table>
             </div>
         </div>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Placa</th>
+                <th>Nombre Cliente</th>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th class="w100">Situacion</th>
+                <th>Numero de Orden</th>
+                <th>Fecha Orden</th>
+                <th>Tipo Servicio</th>
+                <th>Kilometraje</th>
+                <th>Cantidad</th>
+                <th>Decripción Servicio</th>
+                <th>Precio Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of reporte">
+                <td>{{data.placa | titlecase}}</td>
+                <td>{{data.nombreCliente| titlecase}}</td>
+                <td>{{data.marca| titlecase}}</td>
+                <td>{{data.modelo| titlecase}}</td>
+                <td>
+
+                  <span *ngIf="data.situacion.toUpperCase() === 'FACTURADO'" class="label label-success"
+                    > {{data.situacion| titlecase}}</span
+                  >
+                  <span *ngIf="data.situacion.toUpperCase() !== 'FACTURADO'" class="label label-warning"
+                    > {{data.situacion| titlecase}}</span
+                  >
+                </td>
+                <td>{{data.numeroOrden| titlecase}}</td>
+                <td>{{data.fechaOrden }}</td>
+                <td>{{data.descripcionTipoServicio| titlecase}}</td>
+                <td>{{data.kilometraje}}</td>
+                <td>{{data.cantidad | number: '1.2-2'}}</td>
+                <td>{{data.descripcionServicio| titlecase}}</td>
+                <td *ngIf="data.codigoMoneda == 3">{{data.precioTotalItem | currency: 'PEN': 'symbol': '': 'es-PE'}}</td>
+                <td *ngIf="data.codigoMoneda == 4">{{data.precioTotalItem | currency: ''}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <button class="btn btn-secondary">Anteriores</button>
+        &nbsp;
+        <button class="btn btn-secondary">Siguientes</button>
+      </div>
     </div>
+  </div>
 </div>
