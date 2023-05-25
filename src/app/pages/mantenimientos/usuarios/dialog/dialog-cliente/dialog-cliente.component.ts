@@ -27,7 +27,6 @@ export class DialogClienteComponent implements OnInit {
     }
   }
   ngOnInit(): void {
-    debugger;
     if (this.usuario) {
       this.registerForm.patchValue({
         nombre : this.usuario.nombre,

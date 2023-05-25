@@ -15,6 +15,7 @@ const base_url = environment.base_url;
 export class ReporteHistorialService {
 
   constructor(private http: HttpClient) { }
+
   cargarReporteHistorial( filters : ReporteHistorialFilters) : Observable<PaginationResponse<BaseResponse<ReporteHistorialResponse[]>>>{
     return this.http.post<PaginationResponse<BaseResponse<ReporteHistorialResponse[]>>>(`${base_url}/Reporte`,filters);
   }

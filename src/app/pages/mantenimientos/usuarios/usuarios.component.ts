@@ -13,38 +13,38 @@ import Swal from 'sweetalert2';
 })
 export class UsuariosComponent implements OnInit {
 
-  public totalUsuarios : number = 0 ;
-  public usuarios : UsuarioData[] = [];
-  public desde:number = 0;
+  public totalUsuarios: number = 0;
+  public usuarios: UsuarioData[] = [];
+  public desde: number = 0;
   public cargando = true;
   public filters = {} as UsuarioFilters;
-  public nombre :string = '';
-  public cantidadRegistros : number = 10;
+  public nombre: string = '';
+  public cantidadRegistros: number = 10;
 
   constructor(private usuarioService: UsuarioService,
-              public dialog : MatDialog) { }
+    public dialog: MatDialog) { }
   ngOnInit(): void {
     this.cargarUsuarios();
   }
 
-  cargarUsuarios(){
+  cargarUsuarios() {
     this.filters.cantidadRegistros = this.cantidadRegistros;
     this.filters.desde = this.desde;
     this.filters.nombre = this.nombre;
     this.cargando = true;
     this.usuarioService.cargarUsuarios(this.filters)
-    .subscribe(resp =>{
-      this.totalUsuarios = resp.cantidad;
+      .subscribe(resp => {
+        this.totalUsuarios = resp.cantidad;
         this.usuarios = resp.data.data
-      this.cargando = false;
-    });
+        this.cargando = false;
+      });
   }
-  cambiarPagina(valor : number){
+  cambiarPagina(valor: number) {
     const valorAnterior = this.desde;
     this.desde += valor;
     if (this.desde < 0) {
       this.desde = 0;
-    }else if (this.desde >= this.totalUsuarios) {
+    } else if (this.desde >= this.totalUsuarios) {
       this.desde -= valor;
     }
     if (valorAnterior !== this.desde) {
@@ -53,7 +53,7 @@ export class UsuariosComponent implements OnInit {
 
   }
 
-  buscar( termino : string){
+  buscar(termino: string) {
     this.desde = 0;
     this.nombre = termino;
     this.cargarUsuarios();
@@ -61,31 +61,31 @@ export class UsuariosComponent implements OnInit {
 
 
 
-  openAdd(){
-    const dialogRef = this.dialog.open(DialogClienteComponent,{
-      width : '600px',
-      disableClose:false,
+  openAdd() {
+    const dialogRef = this.dialog.open(DialogClienteComponent, {
+      width: '600px',
+      disableClose: false,
     });
 
-    dialogRef.afterClosed().subscribe(result =>{
-        if (result) {
-          this.cargarUsuarios();
-        }
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.cargarUsuarios();
+      }
     })
   }
 
-  openEdit(usuario : UsuarioData){
+  openEdit(usuario: UsuarioData) {
     debugger;
     this.usuarioService.getUsuario(usuario.id)
       .subscribe({
-        next :((data)=>{
+        next: ((data) => {
           debugger
           usuario.password = data.data.password
-          const dialogRef = this.dialog.open(DialogClienteComponent,{
-            disableClose:false,
-            width : '600px',
-            data : usuario
-          }).afterClosed().subscribe(result =>{
+          const dialogRef = this.dialog.open(DialogClienteComponent, {
+            disableClose: false,
+            width: '600px',
+            data: usuario
+          }).afterClosed().subscribe(result => {
             if (result) {
               this.cargarUsuarios();
             }
@@ -94,7 +94,7 @@ export class UsuariosComponent implements OnInit {
       });
   }
 
-  eliminarUsuario(usuario : UsuarioData){
+  eliminarUsuario(usuario: UsuarioData) {
     Swal.fire({
       title: '¿Borrar usuario?',
       text: `Esta apunto de borrar a ${usuario.nombre}`,
@@ -104,14 +104,13 @@ export class UsuariosComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.usuarioService.eliminarUsuario(usuario)
-        .subscribe(resp =>
-          {
+          .subscribe(resp => {
             Swal.fire(
               'Usuario borrado',
               `${usuario.nombre} fué borrado correctamente`,
               'success'
-              );
-              this.cargarUsuarios();
+            );
+            this.cargarUsuarios();
           }
           );
       }

@@ -12,8 +12,12 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { DialogClienteComponent } from './mantenimientos/usuarios/dialog/dialog-cliente/dialog-cliente.component';
 import {MatIconModule} from '@angular/material/icon';
-import {TooltipPosition, MatTooltipModule} from '@angular/material/tooltip';
+import {MatTooltipModule} from '@angular/material/tooltip';
 import { ReporteHistorialComponent } from './dashboard/reports/reporte-historial.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MomentDateModule } from "@angular/material-moment-adapter";
 
 @NgModule({
   declarations: [
@@ -33,7 +37,11 @@ import { ReporteHistorialComponent } from './dashboard/reports/reporte-historial
     MatDialogModule,
     MatSnackBarModule,
     MatIconModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MomentDateModule
   ],
   exports : [
     DashboardComponent,

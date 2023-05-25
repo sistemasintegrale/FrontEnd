@@ -1,5 +1,5 @@
 //TODO: Cambiar los URl
 export const environment = {
-  //base_url : 'http://side2012-001-site1.atempurl.com/api'
-  base_url : 'https://localhost:7203/api'
+  base_url : 'http://www.novaglassbackend.somee.com/api'
+  //base_url : 'https://localhost:7203/api'
 }
