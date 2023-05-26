@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UsuarioData } from 'src/app/models/usuarios/usuarioData';
@@ -27,16 +27,13 @@ export class DialogClienteComponent implements OnInit {
     }
   }
   ngOnInit(): void {
-    if (this.usuario) {
-      this.registerForm.patchValue({
-        nombre : this.usuario.nombre,
-        apellidos : this.usuario.apellidos,
-        email : this.usuario.email,
-        password : this.usuario.password,
-        estado : this.usuario.estado
-      })
-    }
-
+    this.registerForm = new FormGroup({
+      nombre: new FormControl(this.usuario?this.usuario.nombre:'',[Validators.required]),
+      apellidos: new FormControl(this.usuario?this.usuario.apellidos:'',[Validators.required]),
+      email: new FormControl(this.usuario?this.usuario.email:'',[Validators.required,Validators.email]),
+      password: new FormControl(this.usuario?this.usuario.password:'',[Validators.required]),
+      estado: new FormControl(this.usuario?this.usuario.estado:false,[Validators.required]),
+    });
   }
   public estados = [
     {value : true, descripcion : 'Activo'},{value : false, descripcion : 'Inactivo'}
@@ -46,13 +43,7 @@ export class DialogClienteComponent implements OnInit {
 
   public formSubmitted = false;
 
-  public registerForm: any = this.fb.group({
-    nombre: ['', [Validators.required]],
-    apellidos: ['', [Validators.required]],
-    email: ['',[Validators.required, Validators.email]],
-    password: ['', [Validators.required]],
-    estado: [true, [Validators.required]],
-  });
+  public registerForm!: FormGroup;
 
   close() {
     this.dialogRef.close();

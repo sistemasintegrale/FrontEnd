@@ -9,7 +9,7 @@
               <input matEndDate formControlName="fechaHasta" placeholder="Fecha final" (dateChange)="buscar()" >
             </mat-date-range-input>
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-date-range-picker #picker></mat-date-range-picker>          
+            <mat-date-range-picker #picker></mat-date-range-picker>
             <mat-error *ngIf="campoNoValido('fechaDesde')">Fecha inicio inválido</mat-error>
             <mat-error *ngIf="campoNoValido('fechaHasta')">fecha final inválido</mat-error>
           </mat-form-field>
@@ -29,7 +29,7 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row animated fadeIn fast" *ngIf="!cargando">
   <div class="col-12">
     <div class="card">
       <div class="card-body">
@@ -47,7 +47,7 @@
             Sin Registros
           </h6>
         <div class="table-container">
-            
+
           <table class="table table-bordered  clmtable">
             <thead>
               <tr>

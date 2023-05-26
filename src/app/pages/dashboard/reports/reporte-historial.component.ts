@@ -55,7 +55,6 @@ export class ReporteHistorialComponent implements OnInit {
 
     this.reporteService.cargarReporteHistorial(this.filters)
       .subscribe(resp => {
-        this.reporte = [];
         this.reporte = resp.data.data
         this.totalUsuarios = resp.cantidad;
         this.cargando = false;
