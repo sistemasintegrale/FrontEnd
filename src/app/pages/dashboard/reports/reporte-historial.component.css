@@ -1,0 +1,71 @@
+/* Structure */
+.example-container {
+
+  overflow: auto;
+}
+
+.example-table-container {
+  position: relative;
+  min-height: 150px;
+  max-height: 600px;
+  overflow: auto;
+}
+
+table {
+  width: 100%;
+}
+
+.example-loading-shade {
+  position: absolute;
+  top: 0;
+  left: 15px;
+  bottom: 56px;
+  right: 15px;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.example-rate-limit-reached {
+  max-width: 360px;
+  text-align: center;
+}
+
+.mat-column-created {
+  max-width: 124px;
+}
+
+.mat-column-nombreCliente {
+  width :250px;
+  max-width:250px;
+  min-width: 250px;
+  word-wrap:break-word;
+}
+
+.mat-column-descripcionServicio {
+  width :350px;
+  max-width:350px;
+  min-width: 350px;
+  word-wrap:break-word;
+}
+
+.mat-column-placa {
+  width :100px;
+  max-width:100px;
+  min-width: 100px;
+  word-wrap:break-word;
+}
+
+
+.mat-column-precioTotalItem {
+  text-align: center;
+  width :120px;
+  max-width:120px;
+  min-width: 120px;
+  word-wrap:break-word;
+}
+.mat-column-cantidad {
+  text-align: right;
+}

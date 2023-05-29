@@ -19,4 +19,6 @@ export class ReporteHistorialService {
   cargarReporteHistorial( filters : ReporteHistorialFilters) : Observable<PaginationResponse<BaseResponse<ReporteHistorialResponse[]>>>{
     return this.http.post<PaginationResponse<BaseResponse<ReporteHistorialResponse[]>>>(`${base_url}/Reporte`,filters);
   }
+
+
 }

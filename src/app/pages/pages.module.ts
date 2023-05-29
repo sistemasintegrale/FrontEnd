@@ -11,13 +11,19 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { DialogClienteComponent } from './mantenimientos/usuarios/dialog/dialog-cliente/dialog-cliente.component';
-import {MatIconModule} from '@angular/material/icon';
-import {MatTooltipModule} from '@angular/material/tooltip';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { ReporteHistorialComponent } from './dashboard/reports/reporte-historial.component';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MomentDateModule } from "@angular/material-moment-adapter";
+import { MatTableModule } from '@angular/material/table';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { SpinerComponent } from './reutilizables/spiner/spiner.component';
+
 
 @NgModule({
   declarations: [
@@ -26,7 +32,8 @@ import { MomentDateModule } from "@angular/material-moment-adapter";
     AccountSettingsComponent,
     UsuariosComponent,
     DialogClienteComponent,
-    ReporteHistorialComponent
+    ReporteHistorialComponent,
+    SpinerComponent
   ],
   imports: [
     CommonModule,
@@ -41,9 +48,13 @@ import { MomentDateModule } from "@angular/material-moment-adapter";
     MatFormFieldModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MomentDateModule
+    MomentDateModule,
+    MatTableModule,
+    MatProgressSpinnerModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
-  exports : [
+  exports: [
     DashboardComponent,
     PagesComponent,
     AccountSettingsComponent,
