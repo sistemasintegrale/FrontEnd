@@ -3,7 +3,7 @@
     <div class="card">
       <div class="card-body">
         <mat-form-field appearance="outline">
-          <mat-label>Ingrese el rago de fechas</mat-label>
+          <mat-label>Ingrese el rango de fechas</mat-label>
           <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
             <input matStartDate formControlName="fechaDesde" placeholder="Fecha inicio" (dateChange)="buscar()" />
             <input matEndDate formControlName="fechaHasta" placeholder="Fecha final" (dateChange)="buscar()" />

@@ -1,33 +1,21 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ReporteHistorialService } from 'src/app/services/reporte-historial.service';
-import { ReporteHistorialResponse } from '../../../models/reporte-historial/reporte-historial-response';
-import { ReporteHistorialFilters } from 'src/app/interfaces/reporte-historial/reporte-historial-filters';
+import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
-import * as moment from 'moment';
-import { HttpClient } from '@angular/common/http';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import * as moment from 'moment';
+import { MY_DATE_FORMATS } from 'src/app/interfaces/configurations/MY_DATE_FORMATS';
+import { ReporteHistorialFilters } from 'src/app/interfaces/reporte-historial/reporte-historial-filters';
+import { ReporteHistorialResponse } from 'src/app/models/reporte-historial/reporte-historial-response';
 import { CustomPaginatorLabelService } from 'src/app/services/custom-paginator-label.service';
-
-export const MY_DATE_FORMATS = {
-  parse: {
-    dateInput: 'DD/MM/YYYY',
-  },
-  display: {
-    dateInput: 'DD/MM/YYYY',
-    monthYearLabel: 'MMMM YYYY',
-    dateA11yLabel: 'LL',
-    monthYearA11yLabel: 'MMMM YYYY',
-  },
-};
+import { ReporteMotosService } from 'src/app/services/reporte-motos.service';
 
 @Component({
-  selector: 'app-reporte-historial',
-  templateUrl: './reporte-historial.component.html',
-  styleUrls: ['./reporte-historial.component.css'],
+  selector: 'app-reporte-motos',
+  templateUrl: './reporte-motos.component.html',
+  styleUrls: ['./reporte-motos.component.css'],
   providers: [{ provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS }],
 })
-export class ReporteHistorialComponent implements OnInit {
+export class ReporteMotosComponent {
   public reporte: ReporteHistorialResponse[] = [];
   public filters = {} as ReporteHistorialFilters;
   public formSubmitted = false;
@@ -53,7 +41,7 @@ export class ReporteHistorialComponent implements OnInit {
   ];
 
   constructor(
-    private reporteService: ReporteHistorialService,
+    private reporteService: ReporteMotosService,
     private fb: FormBuilder,
     private customPaginatorLabel : CustomPaginatorLabelService
   ) { }
@@ -70,7 +58,6 @@ export class ReporteHistorialComponent implements OnInit {
 
   cargarReporte() {
     debugger
-    this.reporte = [];
     this.cargando = true;
     this.filters.desde = this.desde;
     this.filters.hasta = this.hasta;
@@ -120,7 +107,4 @@ export class ReporteHistorialComponent implements OnInit {
     this.cargarReporte();
     return event;
   }
-
 }
-
-

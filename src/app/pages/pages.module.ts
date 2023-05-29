@@ -13,7 +13,7 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { DialogClienteComponent } from './mantenimientos/usuarios/dialog/dialog-cliente/dialog-cliente.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { ReporteHistorialComponent } from './dashboard/reports/reporte-historial.component';
+ 
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -23,6 +23,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { SpinerComponent } from './reutilizables/spiner/spiner.component';
+import { ReporteHistorialComponent } from './dashboard/reports/reporte-autos/reporte-historial.component';
+import { ReporteMotosComponent } from './dashboard/reports/reporte-motos/reporte-motos.component';
 
 
 @NgModule({
@@ -33,7 +35,8 @@ import { SpinerComponent } from './reutilizables/spiner/spiner.component';
     UsuariosComponent,
     DialogClienteComponent,
     ReporteHistorialComponent,
-    SpinerComponent
+    SpinerComponent,
+    ReporteMotosComponent
   ],
   imports: [
     CommonModule,

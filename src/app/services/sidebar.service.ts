@@ -13,7 +13,10 @@ export class SidebarService {
           titulo : 'Main', url : '/dashboard'
         },
         {
-          titulo : 'Reporte Historial', url : 'reporte-historial'
+          titulo : 'Reporte Historial Autos', url : 'reporte-historial-autos'
+        },
+        {
+          titulo : 'Reporte Historial Motos', url : 'reporte-historial-motos'
         }
       ]
     },
