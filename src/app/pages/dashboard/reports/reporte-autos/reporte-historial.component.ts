@@ -4,7 +4,6 @@ import { ReporteHistorialFilters } from 'src/app/interfaces/reporte-historial/re
 import { FormBuilder, Validators } from '@angular/forms';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
 import * as moment from 'moment';
-import { HttpClient } from '@angular/common/http';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { CustomPaginatorLabelService } from 'src/app/services/custom-paginator-label.service';
 import { ReporteHistorialResponse } from 'src/app/models/reporte-historial/reporte-historial-response';
