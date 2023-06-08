@@ -20,5 +20,5 @@ export class ReporteHistorialService {
     return this.http.post<PaginationResponse<BaseResponse<ReporteHistorialResponse[]>>>(`${base_url}/Reporte`,filters);
   }
 
-
+   
 }
