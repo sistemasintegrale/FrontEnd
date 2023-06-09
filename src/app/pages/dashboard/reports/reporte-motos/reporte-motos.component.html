@@ -1,142 +1,195 @@
 <div class="row animated fadeIn fast">
-    <div class="col-12">
-      <div class="card">
-        <div class="card-body">
-          <mat-form-field appearance="outline">
-            <mat-label>Ingrese el rango de fechas</mat-label>
-            <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
-              <input matStartDate formControlName="fechaDesde" placeholder="Fecha inicio" (dateChange)="buscar()" />
-              <input matEndDate formControlName="fechaHasta" placeholder="Fecha final" (dateChange)="buscar()" />
-            </mat-date-range-input>
-            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-date-range-picker #picker></mat-date-range-picker>
-            <mat-error *ngIf="campoNoValido('fechaDesde')">Fecha inicio inválido</mat-error>
-            <mat-error *ngIf="campoNoValido('fechaHasta')">fecha final inválido</mat-error>
-          </mat-form-field>
-        </div>
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body" [formGroup]="range">
+        <mat-form-field appearance="outline">
+          <mat-label>Ingrese el rango de fechas</mat-label>
+          <mat-date-range-input [rangePicker]="picker">
+            <input matStartDate formControlName="fechaDesde"
+              placeholder="Fecha inicio" (dateChange)="buscarfechas()" />
+            <input matEndDate formControlName="fechaHasta"
+              placeholder="Fecha final" (dateChange)="buscarfechas()" />
+          </mat-date-range-input>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+          <mat-error *ngIf="campoNoValido('fechaDesde')">Fecha inicio inválido</mat-error>
+          <mat-error *ngIf="campoNoValido('fechaHasta')">fecha final inválido</mat-error>
+        </mat-form-field>
+
+        &nbsp;
+
+        <mat-form-field appearance="outline">
+          <mat-label>Marca :</mat-label>
+          <mat-select formControlName="marca" (selectionChange)="someMethod($event.value)">
+            <mat-option [value]=0>--Todos--</mat-option>
+            <mat-option *ngFor="let item of marcas" [value]="item.id">
+              {{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        &nbsp;
+
+        <mat-form-field appearance="outline">
+          <mat-label>Modelo :</mat-label>
+          <mat-select formControlName="modelo" (selectionChange)="someMethod($event.value)">
+            <mat-option [value]=0>--Todos--</mat-option>
+            <mat-option *ngFor="let item of modelos" [value]="item.id">
+              {{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        &nbsp;
+        <mat-form-field appearance="outline">
+          <mat-label>Placa :</mat-label>
+          <mat-select formControlName="placa" (selectionChange)="someMethod($event.value)">
+            <mat-option [value]=0>--Todos--</mat-option>
+            <mat-option *ngFor="let item of placas" [value]="item.id">
+              {{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        &nbsp;
+        <mat-form-field appearance="outline">
+          <mat-label>Número OR :</mat-label>
+          <mat-select formControlName="orden" (selectionChange)="someMethod($event.value)">
+            <mat-option [value]=0>--Todos--</mat-option>
+            <mat-option *ngFor="let item of ordenes" [value]="item.id">
+              {{item.numero}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
     </div>
   </div>
-  
-  <div class="row animated fadeIn fast">
-    <div class="col-12">
-      <div class="card">
-        <div class="card-body">
-          <div class="col-12">
-            <div class="example-container mat-elevation-z1">
-              <div class="row">
-                <div class="example-loading-shade" *ngIf="cargando">
-                  <app-spiner *ngIf="cargando"></app-spiner>
-                </div>
+</div>
+
+<div class="row animated fadeIn fast">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="col-12">
+          <div class="example-container mat-elevation-z1">
+            <div class="row">
+              <div class="example-loading-shade" *ngIf="cargando">
+                <app-spiner *ngIf="cargando"></app-spiner>
               </div>
-              <div class="example-table-container">
-                <table mat-table [dataSource]="reporte" class="example-table" matSort matSortActive="created"
-                  matSortDisableClear matSortDirection="desc">
-                  <!-- Number Column -->
-                  <ng-container matColumnDef="placa">
-                    <th mat-header-cell *matHeaderCellDef>Placa</th>
-                    <td mat-cell *matCellDef="let row">{{ row.placa }}</td>
-                  </ng-container>
-  
-                  <!-- Title Column -->
-                  <ng-container matColumnDef="nombreCliente">
-                    <th mat-header-cell *matHeaderCellDef>Nombre Cliente</th>
-                    <td mat-cell *matCellDef="let row">
-                      {{ row.nombreCliente | titlecase }}
-                    </td>
-                  </ng-container>
-  
-                  <!-- State Column -->
-                  <ng-container matColumnDef="marca">
-                    <th mat-header-cell *matHeaderCellDef>Marca</th>
-                    <td mat-cell *matCellDef="let row">{{ row.marca }}</td>
-                  </ng-container>
-  
-                  <!-- Created Column -->
-                  <ng-container matColumnDef="modelo">
-                    <th mat-header-cell *matHeaderCellDef>Modelo</th>
-                    <td mat-cell *matCellDef="let row">{{ row.modelo }}</td>
-                  </ng-container>
-  
-                  <!-- Number Column -->
-                  <ng-container matColumnDef="numeroOrden">
-                    <th mat-header-cell *matHeaderCellDef>Numero Orden</th>
-                    <td mat-cell *matCellDef="let row">{{ row.numeroOrden }}</td>
-                  </ng-container>
-  
-                  <!-- Title Column -->
-                  <ng-container matColumnDef="situacion">
-                    <th mat-header-cell *matHeaderCellDef>Situación</th>
-                    <td mat-cell *matCellDef="let row">
-                      <span *ngIf="row.situacion.toUpperCase() === 'FACTURADO'" class="label label-success">
-                        {{ row.situacion | titlecase }}</span>
-                      <span *ngIf="row.situacion.toUpperCase() !== 'FACTURADO'" class="label label-warning">
-                        {{ row.situacion | titlecase }}</span>
-                    </td>
-                  </ng-container>
-  
-                  <!-- State Column -->
-                  <ng-container matColumnDef="numeroDocumento">
-                    <th mat-header-cell *matHeaderCellDef>Número Documento</th>
-                    <td mat-cell *matCellDef="let row">
-                      {{ row.numeroDocumento }}
-                    </td>
-                  </ng-container>
-  
-                  <!-- Created Column -->
-                  <ng-container matColumnDef="fechaOrden">
-                    <th mat-header-cell *matHeaderCellDef>Fecha Orden</th>
-                    <td mat-cell *matCellDef="let row">{{ row.fechaOrden }}</td>
-                  </ng-container>
-  
-                  <!-- Number Column -->
-                  <ng-container matColumnDef="descripcionTipoServicio">
-                    <th mat-header-cell *matHeaderCellDef>Tipo Servicio</th>
-                    <td mat-cell *matCellDef="let row">
-                      {{ row.descripcionTipoServicio }}
-                    </td>
-                  </ng-container>
-  
-                  <!-- Title Column -->
-                  <ng-container matColumnDef="kilometraje">
-                    <th mat-header-cell *matHeaderCellDef>Kilometraje</th>
-                    <td mat-cell *matCellDef="let row">{{ row.kilometraje }}</td>
-                  </ng-container>
-  
-                  <!-- State Column -->
-                  <ng-container matColumnDef="cantidad">
-                    <th mat-header-cell *matHeaderCellDef>Cantidad</th>
-                    <td mat-cell *matCellDef="let row">{{ row.cantidad|number: '1.2-2' }}</td>
-                  </ng-container>
-  
-                  <!-- Created Column -->
-                  <ng-container matColumnDef="descripcionServicio">
-                    <th mat-header-cell *matHeaderCellDef>
-                      Descripción Servicio
-                    </th>
-                    <td mat-cell *matCellDef="let row">
-                      {{ row.descripcionServicio | titlecase }}
-                    </td>
-                  </ng-container>
-  
-                  <ng-container matColumnDef="precioTotalItem">
-                    <th mat-header-cell *matHeaderCellDef>Precio Total Item</th>
-                    <td mat-cell *matCellDef="let row"   >
-                      {{ row.codigoMoneda == 4? (row.precioTotalItem| currency: '') :(row.precioTotalItem|currency: 'PEN': 'symbol': '': 'es-PE' )}}
-                    </td>
-  
-                  </ng-container>
-  
-                  <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-                  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-                </table>
-              </div>
-              <mat-paginator [length]="totalReporte" [pageSizeOptions]="[10, 50, 100]" (page)="getPaginationData($event)">
-              </mat-paginator>
             </div>
+            <div class="example-table-container">
+              <table mat-table [dataSource]="reporte" class="example-table"
+                matSort matSortActive="created"
+                matSortDisableClear matSortDirection="desc">
+                <!-- Number Column -->
+                <ng-container matColumnDef="placa">
+                  <th mat-header-cell *matHeaderCellDef>Placa</th>
+                  <td mat-cell *matCellDef="let row">{{ row.placa }}</td>
+                </ng-container>
+
+                <!-- Title Column -->
+                <ng-container matColumnDef="nombreCliente">
+                  <th mat-header-cell *matHeaderCellDef>Nombre Cliente</th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.nombreCliente | titlecase }}
+                  </td>
+                </ng-container>
+
+                <!-- State Column -->
+                <ng-container matColumnDef="marca">
+                  <th mat-header-cell *matHeaderCellDef>Marca</th>
+                  <td mat-cell *matCellDef="let row">{{ row.marca }}</td>
+                </ng-container>
+
+                <!-- Created Column -->
+                <ng-container matColumnDef="modelo">
+                  <th mat-header-cell *matHeaderCellDef>Modelo</th>
+                  <td mat-cell *matCellDef="let row">{{ row.modelo }}</td>
+                </ng-container>
+
+                <!-- Number Column -->
+                <ng-container matColumnDef="numeroOrden">
+                  <th mat-header-cell *matHeaderCellDef>Numero Orden</th>
+                  <td mat-cell *matCellDef="let row">{{ row.numeroOrden }}</td>
+                </ng-container>
+
+                <!-- Title Column -->
+                <ng-container matColumnDef="situacion">
+                  <th mat-header-cell *matHeaderCellDef>Situación</th>
+                  <td mat-cell *matCellDef="let row">
+                    <span *ngIf="row.situacion.toUpperCase() === 'FACTURADO'"
+                      class="label label-success">
+                      {{ row.situacion | titlecase }}</span>
+                    <span *ngIf="row.situacion.toUpperCase() !== 'FACTURADO'"
+                      class="label label-warning">
+                      {{ row.situacion | titlecase }}</span>
+                  </td>
+                </ng-container>
+
+                <!-- State Column -->
+                <ng-container matColumnDef="numeroDocumento">
+                  <th mat-header-cell *matHeaderCellDef>Número Documento</th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.numeroDocumento }}
+                  </td>
+                </ng-container>
+
+                <!-- Created Column -->
+                <ng-container matColumnDef="fechaOrden">
+                  <th mat-header-cell *matHeaderCellDef>Fecha Orden</th>
+                  <td mat-cell *matCellDef="let row">{{ row.fechaOrden }}</td>
+                </ng-container>
+
+                <!-- Number Column -->
+                <ng-container matColumnDef="descripcionTipoServicio">
+                  <th mat-header-cell *matHeaderCellDef>Tipo Servicio</th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.descripcionTipoServicio }}
+                  </td>
+                </ng-container>
+
+                <!-- Title Column -->
+                <ng-container matColumnDef="kilometraje">
+                  <th mat-header-cell *matHeaderCellDef>Kilometraje</th>
+                  <td mat-cell *matCellDef="let row">{{ row.kilometraje }}</td>
+                </ng-container>
+
+                <!-- State Column -->
+                <ng-container matColumnDef="cantidad">
+                  <th mat-header-cell *matHeaderCellDef>Cantidad</th>
+                  <td mat-cell *matCellDef="let row">{{ row.cantidad|number:
+                    '1.2-2' }}</td>
+                </ng-container>
+
+                <!-- Created Column -->
+                <ng-container matColumnDef="descripcionServicio">
+                  <th mat-header-cell *matHeaderCellDef>
+                    Descripción Servicio
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.descripcionServicio | titlecase }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="precioTotalItem">
+                  <th mat-header-cell *matHeaderCellDef>Precio Total Item</th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.codigoMoneda == 4? (row.precioTotalItem| currency: '')
+                    :(row.precioTotalItem|currency: 'PEN': 'symbol': '': 'es-PE'
+                    )}}
+                  </td>
+
+                </ng-container>
+
+                <tr mat-header-row
+                  *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+              </table>
+            </div>
+            <mat-paginator [length]="totalReporte"
+              [pageSizeOptions]="[10, 50, 100]"
+              (page)="getPaginationData($event)">
+            </mat-paginator>
           </div>
         </div>
       </div>
     </div>
   </div>
-  
+</div>

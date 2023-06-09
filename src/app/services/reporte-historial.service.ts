@@ -8,6 +8,7 @@ import { ReporteHistorialResponse } from '../models/reporte-historial/reporte-hi
 import { Observable } from 'rxjs';
 
 const base_url = environment.base_url;
+const service = environment.CONN_NOVAGLASS;
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class ReporteHistorialService {
   constructor(private http: HttpClient) { }
 
   cargarReporteHistorial( filters : ReporteHistorialFilters) : Observable<PaginationResponse<BaseResponse<ReporteHistorialResponse[]>>>{
-    return this.http.post<PaginationResponse<BaseResponse<ReporteHistorialResponse[]>>>(`${base_url}/Reporte`,filters);
+    return this.http.post<PaginationResponse<BaseResponse<ReporteHistorialResponse[]>>>(`${base_url}/Reporte/${service}`,filters);
   }
 
    

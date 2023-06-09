@@ -8,7 +8,7 @@ import { ReporteHistorialResponse } from '../models/reporte-historial/reporte-hi
 import { environment } from 'src/environments/environments';
 
 const base_url = environment.base_url;
-
+const service = environment.CONN_NOVAMOTOS;
 @Injectable({
   providedIn: 'root'
 })
@@ -17,6 +17,6 @@ export class ReporteMotosService {
   constructor(private http: HttpClient) { }
 
   cargarReporteHistorial( filters : ReporteHistorialFilters) : Observable<PaginationResponse<BaseResponse<ReporteHistorialResponse[]>>>{
-    return this.http.post<PaginationResponse<BaseResponse<ReporteHistorialResponse[]>>>(`${base_url}/Reporte/motos`,filters);
+    return this.http.post<PaginationResponse<BaseResponse<ReporteHistorialResponse[]>>>(`${base_url}/Reporte/${service}`,filters);
   }
 }

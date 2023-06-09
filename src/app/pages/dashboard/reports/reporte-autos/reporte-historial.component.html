@@ -6,9 +6,9 @@
           <mat-label>Ingrese el rango de fechas</mat-label>
           <mat-date-range-input [rangePicker]="picker">
             <input matStartDate formControlName="fechaDesde"
-              placeholder="Fecha inicio" (dateChange)="buscar()" />
+              placeholder="Fecha inicio" (dateChange)="buscarfechas()" />
             <input matEndDate formControlName="fechaHasta"
-              placeholder="Fecha final" (dateChange)="buscar()" />
+              placeholder="Fecha final" (dateChange)="buscarfechas()" />
           </mat-date-range-input>
           <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-date-range-picker #picker></mat-date-range-picker>
@@ -20,7 +20,7 @@
 
         <mat-form-field appearance="outline">
           <mat-label>Marca :</mat-label>
-          <mat-select formControlName="marca" (valueChange)="buscar()">
+          <mat-select formControlName="marca" (selectionChange)="someMethod($event.value)">
             <mat-option [value]=0>--Todos--</mat-option>
             <mat-option *ngFor="let item of marcas" [value]="item.id">
               {{item.descripcion}}
@@ -31,7 +31,7 @@
 
         <mat-form-field appearance="outline">
           <mat-label>Modelo :</mat-label>
-          <mat-select formControlName="modelo" (valueChange)="buscar()">
+          <mat-select formControlName="modelo" (selectionChange)="someMethod($event.value)">
             <mat-option [value]=0>--Todos--</mat-option>
             <mat-option *ngFor="let item of modelos" [value]="item.id">
               {{item.descripcion}}
@@ -41,7 +41,7 @@
         &nbsp;
         <mat-form-field appearance="outline">
           <mat-label>Placa :</mat-label>
-          <mat-select formControlName="placa" (valueChange)="buscar()">
+          <mat-select formControlName="placa" (selectionChange)="someMethod($event.value)">
             <mat-option [value]=0>--Todos--</mat-option>
             <mat-option *ngFor="let item of placas" [value]="item.id">
               {{item.descripcion}}
@@ -51,14 +51,13 @@
         &nbsp;
         <mat-form-field appearance="outline">
           <mat-label>Número OR :</mat-label>
-          <mat-select formControlName="orden" (valueChange)="buscar()">
+          <mat-select formControlName="orden" (selectionChange)="someMethod($event.value)">
             <mat-option [value]=0>--Todos--</mat-option>
             <mat-option *ngFor="let item of ordenes" [value]="item.id">
               {{item.numero}}
             </mat-option>
           </mat-select>
         </mat-form-field>
-
       </div>
     </div>
   </div>

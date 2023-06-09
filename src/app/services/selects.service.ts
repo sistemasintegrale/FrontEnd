@@ -7,6 +7,7 @@ import { BaseResponse } from '../interfaces/base-Response';
 import { Modelo } from '../interfaces/reporte-historial/modelo';
 import { Placa } from '../interfaces/reporte-historial/placa';
 import { OrdenReparacion } from '../interfaces/reporte-historial/OR';
+import { ReporteHistorialFilters } from '../interfaces/reporte-historial/reporte-historial-filters';
 
 
 const base_url = environment.base_url;
@@ -18,19 +19,19 @@ export class SelectsService {
 
   constructor(private http: HttpClient) { }
 
-  cargarSelectMarca(service : number):Observable<BaseResponse<Marca[]>>{
-    return this.http.get<BaseResponse<Marca[]>>(`${base_url}/Reporte/marcas/${service}`);
+  cargarSelectMarca(service : number,filters : ReporteHistorialFilters):Observable<BaseResponse<Marca[]>>{
+    return this.http.post<BaseResponse<Marca[]>>(`${base_url}/Reporte/marcas/${service}`,filters);
   }
 
-  cargarSelectModelo(service : number):Observable<BaseResponse<Modelo[]>>{
-    return this.http.get<BaseResponse<Modelo[]>>(`${base_url}/Reporte/modelos/${service}`);
+  cargarSelectModelo(service : number,filters : ReporteHistorialFilters):Observable<BaseResponse<Modelo[]>>{
+    return this.http.post<BaseResponse<Modelo[]>>(`${base_url}/Reporte/modelos/${service}`,filters);
   }
 
-  cargarSelectPlaca(service : number):Observable<BaseResponse<Placa[]>>{
-    return this.http.get<BaseResponse<Placa[]>>(`${base_url}/Reporte/placas/${service}`);
+  cargarSelectPlaca(service : number,filters : ReporteHistorialFilters):Observable<BaseResponse<Placa[]>>{
+    return this.http.post<BaseResponse<Placa[]>>(`${base_url}/Reporte/placas/${service}`,filters);
   }
 
-  cargarSelectOR(service : number):Observable<BaseResponse<OrdenReparacion[]>>{
-    return this.http.get<BaseResponse<OrdenReparacion[]>>(`${base_url}/Reporte/or/${service}`);
+  cargarSelectOR(service : number,filters : ReporteHistorialFilters):Observable<BaseResponse<OrdenReparacion[]>>{
+    return this.http.post<BaseResponse<OrdenReparacion[]>>(`${base_url}/Reporte/or/${service}`,filters);
   }
 }
